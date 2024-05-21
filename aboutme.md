@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: Genius, billionaire, playboy, and philanthropist, excelling in the realm of cybersecurity as a leading Red Team expert.
 ---
 
 - 👋 Hi, I’m Michel
