@@ -13,7 +13,7 @@ subtitle: Genius, billionaire, playboy, and philanthropist, excelling in the rea
 
 - 📫 How to reach me: You can reach me on LinkedIn
 
- ## About me
+ ## About me:
  
 <table>
 <tr>
