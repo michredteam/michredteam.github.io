@@ -13,11 +13,18 @@ subtitle: Why you'd want to go on a date with me
 
 - 📫 How to reach me: You can reach me on LinkedIn
 
-  ![89-ezgif com-video-to-gif-converter](https://github.com/michredteam/michredteam/assets/168865716/17135527-a6fa-4278-9cea-722357a14d7e)
+ ## About me
+<table>
+<tr>
+<td>
+<img src="https://github.com/michredteam/michredteam.github.io/assets/168865716/9ea395de-47d1-4904-b7ef-6fea7a05dba2" width="200"/>
+</td>
+<td>
+<p>With over a decade of experience in the field, I excel in analysis using Splunk, incident response, vulnerability research, and threat hunting based on the MITRE ATT&CK framework, with a particular focus on red team skills. I possess extensive knowledge of security products and maintain a constant passion for the discovery and mitigation of vulnerabilities to strengthen cyber defenses.</p>
+</td>
+</tr>
+</table>
 
-
-# 💫 About Me:
-With over a decade of experience in the field, I excel in analysis using Splunk, incident response, vulnerability research, and threat hunting based on the MITRE ATT&CK framework, with a particular focus on red team skills. I possess extensive knowledge of security products and maintain a constant passion for the discovery and mitigation of vulnerabilities to strengthen cyber defenses. 
 
 
 ## 🌐 Socials:
