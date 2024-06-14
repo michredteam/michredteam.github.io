@@ -2,10 +2,10 @@
 layout: post
 title:  Set a Sentinel environment and start collecting Windows logs on Azure
 subtitle: SOC
-cover-img: /assets/img/azure.png
-thumbnail-img: /assets/img/sentinel.png
-share-img: /assets/img/azure.png
-tags: [SOC, EDR]
+cover-img: /assets/img/azure.PNG
+thumbnail-img: /assets/img/sentinel.PNG
+share-img: /assets/img/azure.PNG
+tags: [SIEM]
 author: Michel Cornejo
 ---
 
@@ -37,7 +37,7 @@ Be sure to follow the video step-by-step for a more effective learning experienc
 Creation of Win 10 on Azure
 The first thing to do is to create a virtual machine on Azure, we go to “All resources” and look for “Microsoft Windows 10”
 
-![create]({{ '/assets/img/create.png' | relative_url }})
+![create]({{ '/assets/img/create.PNG' | relative_url }})
 
 We create our machine, keep everything simple and to standard, and don’t add another functionality that may cost you extra fees, with this VM we will go with the cost of 4GB of RAM:
 
@@ -45,13 +45,13 @@ After creating the machine and setting the user and password we allow only our I
 
 Once the security rule is updated, we connect to the machine via RDP
 
-![victim]({{ '/assets/img/victim.png' | relative_url }})
+![victim]({{ '/assets/img/victim.PNG' | relative_url }})
 
 We connect now via RDP or we can simply download the RDP file.
 
 Enter the password and click on ‘Yes’ to proceed:
 
-![rdp]({{ '/assets/img/rdp.png' | relative_url }})
+![rdp]({{ '/assets/img/rdp.PNG' | relative_url }})
 
  Now we are connected.
 
@@ -59,13 +59,13 @@ Enter the password and click on ‘Yes’ to proceed:
 
 We need to create our workspace, so we search for Microsoft Sentinel in the search bar:
 
-![sentinelbar]({{ '/assets/img/sentinelbar.png' | relative_url }})
+![sentinelbar]({{ '/assets/img/sentinelbar.PNG' | relative_url }})
 
 Once we are redirected to Sentinel, we create a new workspace:
 
 We created a new Microsoft sentinel Workspace called light-monitoring
 
-![light]({{ '/assets/img/light.png' | relative_url }})
+![light]({{ '/assets/img/light.PNG' | relative_url }})
 
 We can mention that we have no logs
 
@@ -73,7 +73,7 @@ At this point, we need to link our Windows 10 machine to our sentinel.
 
 To connect our Win 10 machine, we go to ‘Overview’ and click on ‘Azure Virtual Machine (VMs)’:
 
-![monitor]({{ '/assets/img/monitor.png' | relative_url }})
+![monitor]({{ '/assets/img/monitor.PNG' | relative_url }})
 
 We look for our victim machine and we click on “connect”, we are so lucky that our machine is on Azure so the process is much easier
 else we need to go to “Agent Management” under settings, and download the MMA Wizard or link the machine to sentinel via PowerShell.
@@ -122,7 +122,7 @@ Set-AzResource -ResourceId "$sentinelResourceId/providers/Microsoft.SecurityInsi
 
 We also installed our connector, via the data connector panel on Sentinel we added the “Windows security events via AMA” connector.
 
-![AMA]({{ '/assets/img/AMA.png' | relative_url }})
+![AMA]({{ '/assets/img/AMA.PNG' | relative_url }})
 
 It will take some time; in the meantime, we go to our machine and install Sysmon.
 
@@ -150,7 +150,7 @@ Installed and works perfectly
 
 In Azure Agent management under settings, we can mention that we have one Windows machine connected which is ours, we go and click on “Go to logs”:
 
-![agents]({{ '/assets/img/agents.png' | relative_url }})
+![agents]({{ '/assets/img/agents.PNG' | relative_url }})
 
 And here we are redirected to log management windows, that use KQL as a language to retrieve and filter logs, for more information about KQL check this link: https://docs.microsoft.com/en-us/sharepoint/dev/general-development/keyword-query-language-kql-syntax-reference
 
@@ -175,7 +175,7 @@ We can retrieve specific logs under Sysmon like only Operational as follows in t
 
 Microsoft-Windows-Sysmon/Operational
 
-![sysmon]({{ '/assets/img/sysmon.png' | relative_url }})
+![sysmon]({{ '/assets/img/sysmon.PNG' | relative_url }})
 
 From this step, we can go back to Logs and run a command that retrieves all the Sysmon logs:
 
@@ -212,7 +212,7 @@ To create the alert, we need to go to the Analytics panel and schedule a query r
 
 In the configuration panel, we will set a name and a description for our alert:
 
-![sysmon]({{ '/assets/img/sysmon.png' | relative_url }})
+![sysmon]({{ '/assets/img/sysmon.PNG' | relative_url }})
 
 For the tactics used I picked credential Access based on the MITRE ATT&CK Techniques
 
@@ -271,7 +271,7 @@ Sysmon_Event_Parser
 ```
 My output:
 
-![cmd]({{ '/assets/img/cmd.png' | relative_url }})
+![cmd]({{ '/assets/img/cmd.PNG' | relative_url }})
 
 
 ### Powershell enumerate domains and forests
